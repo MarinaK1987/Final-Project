@@ -67,6 +67,8 @@ int main(void)
     // Make list of all the small amino acid (G,A,S,T,C) in the fasta file
     globalFunc.SmallAminoAcidLists();
 
+	globalFunc.FindWodakInFasta();
+
     /*
     ofstream errorLog;
     errorLog = globalFunc.creat_file_format_txt("errorLog.txt");

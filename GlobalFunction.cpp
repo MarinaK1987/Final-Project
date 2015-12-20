@@ -535,6 +535,46 @@ double GlobalFunction::Hydrophobic(const string &s)
     return -1;
 }
 
+void GlobalFunction::FindWodakInFasta(){
+	ifstream readFile;
+	ofstream outFile("Fasta to Wodak.txt");
+	
+	string String;
+	int N;
+	vector<int> result;
+	OpenFastaFile(readFile);
+	if (readFile.is_open()){
+		while (getline(readFile, String)){
+			if (String[0] == '>') {
+				outFile << String << "\n"; continue; }
+			for (int i = 0; i < String.length(); i++){
+				N= WodakTableValues(String[i]);
+				if (N = !- 1) result.push_back(N);
+			}
+			copy(result.begin(), result.end(), ostream_iterator<int>(outFile, "\n"));
+		}
+		readFile.close();
+		outFile.close();
+	}
+	else cout << "Unable to open file";
+}
+int GlobalFunction::WodakTableValues(char ch){
+	switch (ch){
+		case 'F':	return 109; //Ser
+			break;
+		case 'C':	return 33;	//Cys
+			break;
+		case 'A':	return 316; //Ala
+			break;
+		case 'E':	return 239;	//Gly
+			break;
+		case 'P':	return 66;	//thr
+			break;
+		default:	return -1;
+			break;
+	}
+}
+
 /*
 void GlobalFunction::openClusterCSV(ifstream& clusters, int i)
 {
